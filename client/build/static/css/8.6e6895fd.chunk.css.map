@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/Components/DashboardNotAdded/DashboardNotAdded.scss"],"names":[],"mappings":"AAAA,aACI,gBAAiB,CACjB,eAAgB,CACnB,sBAEG,eAAgB","file":"8.6e6895fd.chunk.css","sourcesContent":[".table-style{\r\n    text-align: right;\r\n    margin-top: 30px;\r\n}\r\n.margin-top-container{\r\n    margin-top: 20px;\r\n}"]}
