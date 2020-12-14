@@ -41,7 +41,7 @@ class Dashboard extends Component {
         this.props.load()
         let x = []
         let y = []
-        axios.get('/products/' + getCurrentUser().email + '/' + days).then(data => {
+        axios.post('/products/', {email: getCurrentUser().email,number:days}).then(data => {
             this.setState({products: data.data});
             console.log(data)
             let y = 0, m = 0;

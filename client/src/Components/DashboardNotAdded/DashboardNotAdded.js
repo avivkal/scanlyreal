@@ -32,7 +32,7 @@ class Dashboard extends Component {
     }
     loadData = (days) => {
         this.props.load()
-        axios.get('/products/notAdded/' + getCurrentUser().email + '/' + days).then(data => {
+        axios.post('/products/notAdded/' ,{email: getCurrentUser().email,number:days}).then(data => {
             this.setState({productsNotAdded: data.data})
             this.props.finishedLoading()
           })

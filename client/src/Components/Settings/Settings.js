@@ -22,7 +22,7 @@ class Settings extends Component {
         //load everything
         this.props.load();
         try{
-            axios.get('/details/' + getCurrentUser().email).then(data => {
+            axios.post('/details/' ,{email: getCurrentUser().email}).then(data => {
                 const user = data.data;
                 if(user.selection === '' || user.selection === undefined || user.selection === null)
                     user.selection = 'Shufersal';

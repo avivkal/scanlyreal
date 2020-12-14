@@ -37,7 +37,7 @@ class Wifi extends Component {
         }
         this.props.load();
         try {
-            axios.get('/details/' + getCurrentUser().email).then(data => {
+            axios.post('/details/' ,{email: getCurrentUser().email}).then(data => {
                 const user = data.data;
                 this.setState({
                     username: user.wifiUsername,
