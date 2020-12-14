@@ -60,7 +60,7 @@ router.post('/', async (req, res) => {
         }).catch(error => res.status(500).send(error))
 })
 
-router.post('/notAdded/:email/:number', async (req, res) => {
+router.post('/notAdded', async (req, res) => {
   var today = new Date();
   today.setDate(today.getDate() - req.body.number);
     Product.find({ email: req.body.email, added: false, creationDate: {$gte: today}  }).
