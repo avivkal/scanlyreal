@@ -43,6 +43,7 @@ class Dashboard extends Component {
         let y = []
         axios.get('/products/' + getCurrentUser().email + '/' + days).then(data => {
             this.setState({products: data.data});
+            console.log(data)
             let y = 0, m = 0;
             for(let x in data.data){
                 y += data.data[x].shufersalPrice;
