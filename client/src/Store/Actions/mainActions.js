@@ -1,9 +1,7 @@
 import { actionTypes } from '../actionTypes'
-import axios from 'axios'
-import { setCurrentUser, userExists,getCurrentUser } from '../../UtilityFunctions/functions'
-import { store } from '../store'
+import axios from '../../Axios/config'
+import { setCurrentUser,getCurrentUser, setCurrentToken } from '../../UtilityFunctions/functions'
 import { loading, finishedLoading } from './loadingActions'
-import { toggleSuccess } from './promptActions'
 
 const updateWifiDetails = (username, password) => async dispatch => {
     dispatch(loading());
@@ -12,7 +10,7 @@ const updateWifiDetails = (username, password) => async dispatch => {
         dispatch(updateUsername(user.data));
     }
     catch(error){
-        dispatch(openPrompt('תקלה', error.response.data))
+        dispatch(openPrompt('תקלה', error.response))
     }
     finally{
         dispatch(finishedLoading());
@@ -32,11 +30,11 @@ const updateSettings = (shufersalUsername,shufersalPassword,ramiLevyUsername,ram
             sound
          })
         await dispatch(updateUsername(user.data));
-        console.log(user.data)
-
+        await dispatch(loggedIn());
         dispatch(openPrompt('נשמר','כל המידע נשמר'))
     }
     catch(error){
+        console.log(error)
         dispatch(openPrompt('תקלה', error.response.data))
     }
     finally{
@@ -47,8 +45,17 @@ const updateSettings = (shufersalUsername,shufersalPassword,ramiLevyUsername,ram
 }
 
 
-const updateUsername = (user) => {
+const updateUsername = (user) => dispatch => {
     setCurrentUser(user);
+    try{
+        if(user.token !== undefined && user.token !== null && user.token !== ''){
+            setCurrentToken(user.token)
+            dispatch(updateToken(user.token))    
+        }
+    }
+    catch(erorr){
+        console.log(erorr)
+    }
     return {
         type: actionTypes.UPDATE_USERNAME,
         payload: user
@@ -71,6 +78,13 @@ const loggedIn = () => {
     }
 }
 
+const updateToken = (token) => {
+    return {
+        type: actionTypes.UPDATE_TOKEN,
+        token,
+    }
+}
+
 const logIn = (email, password) => async dispatch => {
     dispatch(loading());
     try {
@@ -79,11 +93,26 @@ const logIn = (email, password) => async dispatch => {
         await dispatch(loggedIn());
     }
     catch (error) {
-        dispatch(openPrompt('תקלה', error.response.data))
+        dispatch(openPrompt('תקלה', error.response))
     }
     finally {
         dispatch(finishedLoading());
     }
+}
+
+const registerAll = (email,password,shufersalUsername,shufersalPassword,ramiLevyUsername,ramiLevyPassword,selection,sound,usernameWifi,passwordWifi) => async dispatch => {
+    const shouldUpdate = await axios.post('/settings/update', {shufersalUsername,shufersalPassword,ramiLevyUsername,ramiLevyPassword,selection})
+    console.log(shouldUpdate.data.should)
+    if(shouldUpdate.data.should){
+        await dispatch(register(email,password))
+        if(getCurrentUser()){
+            await dispatch(updateWifiDetails(usernameWifi,passwordWifi))        
+            await dispatch(updateSettings(shufersalUsername,shufersalPassword,ramiLevyUsername,ramiLevyPassword,selection,sound))
+        }    
+    }
+   else{
+       dispatch(openPrompt('תקלה', ' האימייל והסיסמה לאתר הקניות לא נמצאו'))
+   }
 }
 
 const register = (email, password) => async dispatch => {
@@ -91,28 +120,9 @@ const register = (email, password) => async dispatch => {
     try {
         const user = await axios.post('/register', { email: email, password: password })
         await dispatch(updateUsername(user.data));
-        await dispatch(loggedIn());
     }
     catch (error) {
-        dispatch(openPrompt('תקלה', error))
-    }
-    finally {
-        dispatch(finishedLoading());
-    }
-}
-
-const getEmails = () => async dispatch => {
-    dispatch(loading());
-    try {
-        const userEmail = store.getState().main.currentUser.email;
-        await axios.get('/messages/sent/' + userEmail).then(sent => {
-            dispatch(updateSent(sent.data))
-        })
-        await axios.get('/messages/inbox/' + userEmail).then(inbox => {
-            dispatch(updateInbox(inbox.data))
-        })
-    }
-    catch (error) {
+        console.log(error)
         dispatch(openPrompt('תקלה', error.response.data))
     }
     finally {
@@ -122,56 +132,16 @@ const getEmails = () => async dispatch => {
 
 
 
-const updateInbox = (inboxEmails) => {
-    return {
-        type: actionTypes.UPDATE_INBOX,
-        payload: inboxEmails
-    }
-}
-
-const sendMessage = (receiver, subject, message) => async dispatch => {
-    const currentUser = store.getState().main.currentUser;
-    dispatch(loading())
-    try {
-        const user = await axios.get('/findUsers/' + receiver)
-        if (userExists(user.data)) {
-            await axios.post('/messages/' + currentUser._id,
-                {
-                    sender: currentUser.email,
-                    receiver: receiver,
-                    message: message,
-                    subject: subject,
-                    creationDate: new Date(),
-                });
-            dispatch(toggleSuccess());
-        }
-        else {
-            dispatch(openPrompt('תקלה', 'Email not found'))
-        }
-    }
-    catch (error) {
-        dispatch(openPrompt('תקלה', error))
-    }
-    finally {
-        dispatch(finishedLoading())
-    }
-}
 
 
-const updateSent = (sentEmails) => {
-    return {
-        type: actionTypes.UPDATE_SENT,
-        payload: sentEmails
-    }
-}
 
 export {
     updateUsername,
     loggedIn,
     logIn,
     register,
-    getEmails,
-    sendMessage,
     updateWifiDetails,
-    updateSettings
+    updateSettings,
+    updateToken,
+    registerAll
 }

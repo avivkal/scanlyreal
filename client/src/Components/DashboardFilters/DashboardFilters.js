@@ -5,7 +5,7 @@ import * as loadingActions from '../../Store/Actions/loadingActions'
 import { LOGIN_PATH } from '../../Constants/const';
 import { getCurrentUser } from '../../UtilityFunctions/functions';
 import { Container,Table,Dropdown,Spinner,Row } from 'react-bootstrap';
-import axios from 'axios'
+import axios from '../../Axios/config'
 import './dashboardFilters.scss'
 class Dashboard extends Component {
     state = {
@@ -19,7 +19,6 @@ class Dashboard extends Component {
         // axios.get('https://chp.co.il/autocompletion/product_extended?term=8717163647226').then(data=> console.log(data.data[0].value))
         if (!this.props.loggedIn) {
             if (getCurrentUser()) {
-                await this.props.logIn(getCurrentUser().email,getCurrentUser().password)
                 this.props.setLoggedIn()
                 this.loadData(this.state.days)
             }
@@ -28,7 +27,6 @@ class Dashboard extends Component {
             }
         }
         else{
-            await this.props.logIn(getCurrentUser().email,getCurrentUser().password)
             this.loadData(this.state.days)
         }
     }
@@ -44,7 +42,6 @@ class Dashboard extends Component {
             }
             this.setState({totalPriceLocal:x})
 
-            console.log(data.data)
             this.props.finishedLoading()
         })
     }
@@ -63,6 +60,11 @@ class Dashboard extends Component {
     render(){
         if(this.props.loading)
             return <Spinner animation="border" className="spinner" />
+        if(this.state.products === null || this.state.products === undefined || this.state.products.length === 0)
+            return <Container>
+                <h1 style={{textAlign:"right"}}>נתוני צריכה</h1>
+            <h1 className="align-none">לא נסרקו עדיין מוצרים</h1>
+                </Container>
         return(
             <Container className="margin-top-container">
              
@@ -91,7 +93,6 @@ class Dashboard extends Component {
                         </Dropdown.Menu>
                     </Dropdown>
                     </Row>
-                    <p className="align-right">נתונים לפי עגלה נוכחית: <b>{this.props.currentUser.selection === 'Shufersal' ? 'שופרסל' : 'רמי לוי'}</b></p>
 
 <Table bordered hover className="table-style">
   <thead>

@@ -2,17 +2,37 @@ const express = require('express');
 const router = express.Router();
 const User = require('../Models/user')
 const functions = require('../Functions/functions');
+const jwt = require('jsonwebtoken');
+// router.post('/', async (req, res) => {
+//   User.findOne({ "email": req.body.email, "password": req.body.password }).then(user => {
+//     if (functions.userExists(user)) {
+//       res.json(user)
+//     }
+//     else {
+//       res.status(500).send('אימייל/סיסמה לא נכונים אנא נסה שנית')
+//     }
+//   })
+//     .catch(error => res.status(500).send(error.message))
+// })
+
+
 router.post('/', async (req, res) => {
-  User.findOne({ "email": req.body.email, "password": req.body.password }).then(user => {
-    if (functions.userExists(user)) {
-      res.json(user)
+  User.findOne({
+    "email": req.body.email
+  }).then(user => {
+    console.log(user.password)
+    if (!user || !user.comparePassword(req.body.password)) {
+      res.status(401).json({ message: 'Authentication failed. Invalid user or password.' });
     }
-    else {
-      res.status(500).send('אימייל/סיסמה לא נכונים אנא נסה שנית')
-    }
-  })
-    .catch(error => res.status(500).send(error.message))
+    const token = jwt.sign({ email: user.email, _id: user._id }, process.env.TOKEN_SECRET);
+    res.header("auth-token", token).json({ token, ...user._doc });
+  }).
+  catch(error => res.status(500).send(error.message))
+
+
 })
+
+
 
 // router.post('/', async (req, res) => {
 

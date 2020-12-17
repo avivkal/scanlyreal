@@ -15,6 +15,14 @@ const messagesExist = (messages) => {
 const setCurrentUser = (user) => {
     localStorage.setItem('currentUser', JSON.stringify(user))
 }
+const setCurrentToken = (token) => {
+    localStorage.setItem('token', JSON.stringify(token))
+}
+
+const getCurrentToken = () => {
+    return JSON.parse(localStorage.getItem('token'))
+}
+
 const getCurrentUser = () => {
     return JSON.parse(localStorage.getItem('currentUser'))
 }
@@ -24,5 +32,7 @@ export {
     isPartOfString,
     setCurrentUser,
     getCurrentUser,
-    messagesExist
+    messagesExist,
+    getCurrentToken,
+    setCurrentToken
 }

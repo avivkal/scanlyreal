@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const bcrypt = require('bcrypt');
 const validateEmail = (email) => {
     const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return re.test(email)
@@ -14,7 +14,6 @@ const userScheme = new mongoose.Schema({
     password: {
         type: String,
         minlength: 5,
-        maxlength: 20,
         required: true
     },
     wifiUsername: {
@@ -42,5 +41,10 @@ const userScheme = new mongoose.Schema({
         type: Boolean
     }
 });
+
+userScheme.methods.comparePassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
+
+};
 
 module.exports = mongoose.model('user', userScheme);

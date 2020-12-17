@@ -6,7 +6,7 @@ import * as loadingActions from '../../Store/Actions/loadingActions'
 import { LOGIN_PATH } from '../../Constants/const';
 import { getCurrentUser } from '../../UtilityFunctions/functions';
 import { Form, Button, Container, Spinner,Row,Col } from 'react-bootstrap';
-import axios from 'axios'
+import axios from '../../Axios/config'
 import Barcode from 'react-barcode'
 import './wifi.scss'
 

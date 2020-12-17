@@ -73,11 +73,14 @@ router.post('/notAdded', async (req, res) => {
 router.post('/agg', async (req, res) => {
   var today = new Date();
   today.setDate(today.getDate() - req.body.number);
-  const marketPrice = req.body.isShufersal ? "$shufersalPrice" : "$ramiLevyPrice";
   if(req.body.filter === 'amount'){
     Product.aggregate([
       { $match: { email: req.body.email, added: true, creationDate: {$gte: today} } },
-      { $group: { _id: {barcode: "$barcode",image: "$image", name:"$name"}, total: { $sum: 1 }, price: { $sum: marketPrice }} },
+      { $group: { _id: {barcode: "$barcode",image: "$image", name:"$name"}, total: { $sum: 1 }, price: { $sum: {'$cond': [
+        { '$eq': ['$selection', "Shufersal"]}, 
+        '$shufersalPrice',
+        '$ramiLevyPrice'
+    ]} }} },
       { $sort: { total: -1 } }
     ]
     ).
@@ -88,7 +91,13 @@ router.post('/agg', async (req, res) => {
   else{
     Product.aggregate([
       { $match: { email: req.body.email, added: true, creationDate: {$gte: today} } },
-      { $group: { _id: {barcode: "$barcode",image: "$image", name:"$name"}, total: { $sum: 1 }, price: { $sum: marketPrice }} },
+      { $group: { _id: {barcode: "$barcode",image: "$image", name:"$name"}, total: { $sum: 1 }, 
+      price: { $sum: {'$cond': [
+        { '$eq': ['$selection', "Shufersal"]}, 
+        '$shufersalPrice',
+        '$ramiLevyPrice'
+    ]} }
+  }},
       { $sort: { price: -1 } }
     ]
     ).
@@ -99,5 +108,21 @@ router.post('/agg', async (req, res) => {
     
 })
 
+
+router.post('/total', async (req, res) => {
+  var today = new Date();
+  today.setDate(today.getDate() - req.body.number);
+  const marketPrice = req.body.isShufersal ? "$shufersalPrice" : "$ramiLevyPrice";
+  const marketPrice1 = req.body.isShufersal ? "shufersalPrice" : "ramiLevyPrice";
+    Product.aggregate([
+      { $match: { email: req.body.email, added: true, creationDate: {$gte: today} } },
+      { $group: { _id: {selection:marketPrice1}, total: { $sum: 1 }, price: {$sum: marketPrice} } },
+      { $sort: { total: -1 } }
+    ]
+    ).
+        then(data => {
+            res.send(data)
+        }).catch(error => res.status(500).send(error))
+})
 
 module.exports = router

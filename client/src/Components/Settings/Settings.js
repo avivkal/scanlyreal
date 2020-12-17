@@ -4,7 +4,7 @@ import * as mainActions from '../../Store/Actions/mainActions'
 import { LOGIN_PATH } from '../../Constants/const';
 import { getCurrentUser } from '../../UtilityFunctions/functions';
 import { Form, Button, Dropdown, Container, Col } from 'react-bootstrap';
-import axios from 'axios'
+import axios from '../../Axios/config'
 import * as promptActions from '../../Store/Actions/promptActions'
 import * as loadingActions from '../../Store/Actions/loadingActions'
 import './settings.scss'
@@ -16,7 +16,7 @@ class Settings extends Component {
         ramiLevyUsername: '',
         ramiLevyPassword: '',
         selection: 'Shufersal',
-        sound: false
+        sound: true
     }
     componentDidMount = () => {
         //load everything
@@ -82,12 +82,12 @@ class Settings extends Component {
                         {this.state.selection === 'Shufersal' && <div>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>שופרסל אימייל</Form.Label>
-                        <Form.Control name="shufersalUsername" type="text" placeholder="Enter Shufersal Username" onChange={(e) => this.onChange(e)} value={this.state.shufersalUsername} />
+                        <Form.Control name="shufersalUsername" type="text" placeholder="הכנס מייל לשופרסל" onChange={(e) => this.onChange(e)} value={this.state.shufersalUsername} />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>שופרסל סיסמה</Form.Label>
-                        <Form.Control name="shufersalPassword" type="password" placeholder="Enter Shufersal Password" onChange={(e) => this.onChange(e)} value={this.state.shufersalPassword} />
+                        <Form.Control name="shufersalPassword" type="password" placeholder="הכנס סיסמה לשופרסל" onChange={(e) => this.onChange(e)} value={this.state.shufersalPassword} />
                     </Form.Group>
                     </div>}
                         
@@ -95,12 +95,12 @@ class Settings extends Component {
                     <div>
                     <Form.Group controlId="formBasicEmail">
                     <Form.Label>רמי לוי אימייל</Form.Label>
-                    <Form.Control name="ramiLevyUsername" type="text" placeholder="Enter Rami Levy Username" onChange={(e) => this.onChange(e)} value={this.state.ramiLevyUsername} />
+                    <Form.Control name="ramiLevyUsername" type="text" placeholder="הכנס מייל לרמי לוי" onChange={(e) => this.onChange(e)} value={this.state.ramiLevyUsername} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>רמי לוי סיסמה</Form.Label>
-                    <Form.Control name="ramiLevyPassword" type="password" placeholder="Enter Rami Levy Password" onChange={(e) => this.onChange(e)} value={this.state.ramiLevyPassword} />
+                    <Form.Control name="ramiLevyPassword" type="password" placeholder="הכנס סיסמה לרמי לוי" onChange={(e) => this.onChange(e)} value={this.state.ramiLevyPassword} />
                 </Form.Group>
                 </div>
                     }

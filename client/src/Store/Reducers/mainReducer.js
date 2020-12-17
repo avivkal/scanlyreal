@@ -1,9 +1,8 @@
 const initialState = {
     currentUser: {},
     loggedIn: false,
-    userInbox: [],
-    userSent: [],
-    loading: false
+    loading: false,
+    token: ''
 }
 
 const mainReducer = (state = initialState, action) => {
@@ -18,17 +17,11 @@ const mainReducer = (state = initialState, action) => {
                 ...state,
                 loggedIn: true
             }
-        case 'UPDATE_INBOX':
+        case 'UPDATE_TOKEN':
             return {
                 ...state,
-                userInbox: action.payload
+                token: action.token
             }
-        case 'UPDATE_SENT':
-            return {
-                ...state,
-                userSent: action.payload
-            }
-
         default:
             return state
     }

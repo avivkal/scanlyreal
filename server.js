@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors');
 const mongoose = require('mongoose')
 const path = require('path');
+const verifyToken = require("./routes/validate-token");
 
 require('dotenv').config();
 
@@ -24,16 +25,16 @@ const login = require('./Routes/login');
 app.use('/login', login);
 
 const wifi = require('./Routes/wifi');
-app.use('/wifi', wifi);
+app.use('/wifi',verifyToken, wifi);
 
 const settings = require('./Routes/settings');
 app.use('/settings', settings);
 
 const details = require('./Routes/details');
-app.use('/details', details);
+app.use('/details',verifyToken, details);
 
 const products = require('./Routes/products');
-app.use('/products', products);
+app.use('/products',verifyToken, products);
 
 
 const PORT = process.env.PORT || 5000
