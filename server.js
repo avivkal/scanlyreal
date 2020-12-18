@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors');
 const mongoose = require('mongoose')
 const path = require('path');
-const verifyToken = require("./routes/validate-token");
+const verifyToken = require("./Routes/validate-token");
 
 require('dotenv').config();
 
