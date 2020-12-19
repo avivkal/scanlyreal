@@ -4,9 +4,11 @@ import * as mainActions from '../../Store/Actions/mainActions'
 import * as loadingActions from '../../Store/Actions/loadingActions'
 import { LOGIN_PATH } from '../../Constants/const';
 import { getCurrentUser } from '../../UtilityFunctions/functions';
-import { Container,Table,Dropdown,Spinner,Row } from 'react-bootstrap';
+import { Container,Table,Dropdown,Spinner,Row,Col } from 'react-bootstrap';
 import axios from '../../Axios/config'
 import './dashboardFilters.scss'
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 class Dashboard extends Component {
     state = {
         products: [],
@@ -59,7 +61,7 @@ class Dashboard extends Component {
     }
     render(){
         if(this.props.loading)
-            return <Spinner animation="border" className="spinner" />
+            return <Col xs={12} className="d-flex justify-content-center spinner-style"><CircularProgress /></Col>
         if(this.state.products === null || this.state.products === undefined || this.state.products.length === 0)
             return <Container>
                 <h1 style={{textAlign:"right"}}>נתוני צריכה</h1>
@@ -95,7 +97,7 @@ class Dashboard extends Component {
                     </Row>
 
 <Table bordered hover className="table-style">
-  <thead>
+  <thead className="table-header">
     <tr>
     <th>מחיר כולל</th>
     <th>כמות</th>

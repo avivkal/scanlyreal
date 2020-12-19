@@ -5,10 +5,10 @@ import * as promptActions from '../../Store/Actions/promptActions'
 import * as loadingActions from '../../Store/Actions/loadingActions'
 import { LOGIN_PATH } from '../../Constants/const';
 import { getCurrentUser } from '../../UtilityFunctions/functions';
-import { Container,Dropdown,Table,Spinner } from 'react-bootstrap';
+import { Container,Dropdown,Table,Spinner,Col } from 'react-bootstrap';
 import axios from '../../Axios/config'
 import './dashboard.scss'
-import { finishedLoading } from '../../Store/Actions/loadingActions';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Dashboard extends Component {
     state = {
@@ -74,16 +74,16 @@ class Dashboard extends Component {
     render(){
       console.log(this.state.products)
         if(this.props.loading)
-            return <Spinner animation="border" className="spinner" />
+            return <Col xs={12} className="d-flex justify-content-center spinner-style"><CircularProgress /></Col>
         if(this.state.products === null || this.state.products === undefined || this.state.products.length === 0)
             return <Container>
-            <h1 style={{textAlign:"right"}}>מוצרים שסרקת</h1>
+            <h1 style={{textAlign:"right"}}>מוצרים שנוספו</h1>
             <h1 className="table-style-image margin-top-container">לא נסרקו עדיין מוצרים</h1>
             </Container>
             
         return(
             <Container className="margin-top-container">
-            <h1 className="align-right">מוצרים שסרקת</h1>
+            <h1 className="align-right">מוצרים שנוספו</h1>
             <Dropdown>
                         <Dropdown.Toggle variant="dark" id="dropdown-basic">
                   לפי    {this.state.days} ימים אחרונים
@@ -99,7 +99,7 @@ class Dashboard extends Component {
 
                                 <Table bordered hover className="table-style">
   <thead>
-    <tr>
+    <tr className="table-header">
       <th className="table-style-image">ניתן לחסוך</th>
       <th className="table-style-image">שופרסל</th>
       <th className="table-style-image">רמי לוי</th>
@@ -152,9 +152,9 @@ class Dashboard extends Component {
   </tbody>
 </Table>
 
-<Table bordered hover className="table-style-image">
+<Table bordered hover className="table-style-image table-style">
   <thead>
-    <tr>
+    <tr className="table-header">
       <th>ניתן לחסוך</th>
       <th>שופרסל</th>
       <th>רמי לוי</th>

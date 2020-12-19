@@ -9,6 +9,7 @@ import { Form, Button, Container, Spinner,Row,Col } from 'react-bootstrap';
 import axios from '../../Axios/config'
 import Barcode from 'react-barcode'
 import './wifi.scss'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 class Wifi extends Component {
@@ -60,12 +61,12 @@ class Wifi extends Component {
 
     render() {
         if (this.props.loading) {
-            return <Spinner animation="border" className="spinner" />
+            return <Col xs={12} className="d-flex justify-content-center spinner-style"><CircularProgress /></Col>
         }
 
         return (
             <Container>
-                {!(this.state.submitUsername || this.state.submitPassword) && <Form onSubmit={this.onSubmit} className="form-style">
+                {!(this.state.submitUsername || this.state.submitPassword) && <Form onSubmit={this.onSubmit} className="form-style-wifi">
                     <Col xs={12} lg={6} className="float-right">
                     <Form.Group controlId="formBasicEmail" className="align-right">
                         <Form.Label>Wifiשם משתמש ל</Form.Label>

@@ -4,7 +4,8 @@ import './register.scss'
 import * as mainActions from '../../Store/Actions/mainActions'
 import { connect } from 'react-redux'
 import { DASHBOARD_PATH, LOGIN_PATH } from '../../Constants/const'
-import axios from '../../Axios/config';
+import * as loadingActions from '../../Store/Actions/loadingActions'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Register extends Component {
     state = {
@@ -27,6 +28,7 @@ class Register extends Component {
         const {email,password,shufersalUsername,
             shufersalPassword,ramiLevyUsername,ramiLevyPassword,
             selection, sound,usernameWifi,passwordWifi} = this.state;
+        this.props.load()
         try{
             await this.props.registerAll(email,password,shufersalUsername,shufersalPassword,ramiLevyUsername,ramiLevyPassword,selection,sound,usernameWifi,passwordWifi)
             // await this.props.register(email,password)
@@ -35,6 +37,9 @@ class Register extends Component {
         }
         catch(error){
             console.log(error)
+        }
+        finally{
+            this.props.finishedLoading()
         }
         if (this.props.loggedIn) {
             this.props.history.push(DASHBOARD_PATH);
@@ -46,21 +51,23 @@ class Register extends Component {
     };
 
     render() {
+        if(this.props.loading)
+            return <Col xs={12} className="d-flex justify-content-center spinner-style"><CircularProgress /></Col>
         return (
             <Container className="form app-background">
-                <h1 style={{textAlign:"right"}}>הרשמה</h1>
+                        <Col xs={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} className="form-style">
+
+                <h3 style={{textAlign:"center"}}>הרשמה</h3>
                 <Form onSubmit={(e) => this.handleSubmit(e)} style={{textAlign:"right"}}>
-                <Col xs={12} lg={6} className="float-right">
+                <Col className="top">
 
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>דואר אלקטרוני</Form.Label>
                         <Form.Control type="email" placeholder="הכנס דואר אלקטרוני" name="email" onChange={(e) => this.handleChange(e)} />
                         
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
-                        <Form.Label>סיסמה</Form.Label>
-                        <Form.Control type="password" placeholder="הכנס סיסמה" name="password" onChange={(e) => this.handleChange(e)} />
+                        <Form.Control type="password" placeholder="צור סיסמה" name="password" onChange={(e) => this.handleChange(e)} />
                     </Form.Group>
                     <Dropdown>
 
@@ -77,12 +84,10 @@ class Register extends Component {
 <div className="form-margin-top">
 {this.state.selection === 'Shufersal' && <div>
 <Form.Group controlId="formBasicEmail">
-<Form.Label>שופרסל אימייל</Form.Label>
 <Form.Control name="shufersalUsername" type="email" placeholder="הכנס מייל לשופרסל" onChange={(e) => this.handleChange(e)} value={this.state.shufersalUsername} />
 </Form.Group>
 
 <Form.Group controlId="formBasicPassword">
-<Form.Label>שופרסל סיסמה</Form.Label>
 <Form.Control name="shufersalPassword" type="password" placeholder="הכנס סיסמה לשופרסל" onChange={(e) => this.handleChange(e)} value={this.state.shufersalPassword} />
 </Form.Group>
 </div>}
@@ -90,12 +95,10 @@ class Register extends Component {
 {this.state.selection !== 'Shufersal' && 
 <div>
 <Form.Group controlId="formBasicEmail">
-<Form.Label>רמי לוי אימייל</Form.Label>
 <Form.Control name="ramiLevyUsername" type="text" placeholder="הכנס מייל לרמי לוי" onChange={(e) => this.handleChange(e)} value={this.state.ramiLevyUsername} />
 </Form.Group>
 
 <Form.Group controlId="formBasicPassword">
-<Form.Label>רמי לוי סיסמה</Form.Label>
 <Form.Control name="ramiLevyPassword" type="password" placeholder="הכנס סיסמה לרמי לוי" onChange={(e) => this.handleChange(e)} value={this.state.ramiLevyPassword} />
 </Form.Group>
 </div>
@@ -108,19 +111,17 @@ class Register extends Component {
 </div>
 
 <Form.Group controlId="formBasicEmail" className="align-right">
-                        <Form.Label>Wifiשם משתמש ל</Form.Label>
-                        <Form.Control name="usernameWifi" type="text" placeholder="wifiהכנס שם משתמש ל" onChange={(e) => this.handleChange(e)} value={this.state.usernameWifi} />
+                        <Form.Control name="usernameWifi" type="text" placeholder="Wifiהכנס שם משתמש ל" onChange={(e) => this.handleChange(e)} value={this.state.usernameWifi} />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword" className="align-right">
-                    <Form.Label>Wifiסיסמה ל</Form.Label>
-                        <Form.Control name="passwordWifi" type="password" placeholder="wifiהכנס סיסמה ל" onChange={(e) => this.handleChange(e)} value={this.state.passwordWifi} />
+                        <Form.Control name="passwordWifi" type="password" placeholder="Wifiהכנס סיסמה ל" onChange={(e) => this.handleChange(e)} value={this.state.passwordWifi} />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit">
+                    <Button className="btn-block mr-1 mt-1 btn-md" variant="primary" type="submit">
                         הרשמה
               </Button>
-              <p> יש לך כבר חשבון? לחץ<span onClick={() => this.props.history.push(LOGIN_PATH)} className="register-link"> כאן </span> כדי להתחבר</p>
+              <p className="top-p"> יש לך כבר חשבון? לחץ<span onClick={() => this.props.history.push(LOGIN_PATH)} className="register-link"> כאן </span> כדי להתחבר</p>
             
 
 </Col>
@@ -128,7 +129,7 @@ class Register extends Component {
                 </Form>
 
         
-
+</Col>
             </Container>
         );
     }
@@ -137,7 +138,8 @@ class Register extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        loggedIn: state.main.loggedIn
+        loggedIn: state.main.loggedIn,
+        loading: state.loading.loading
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -146,6 +148,9 @@ const mapDispatchToProps = (dispatch) => {
         updateSettings: (shufersalUsername,shufersalPassword,ramiLevyUsername,ramiLevyPassword,selection,sound) => dispatch(mainActions.updateSettings(shufersalUsername,shufersalPassword,ramiLevyUsername,ramiLevyPassword,selection,sound)),
         updateWifiDetails: (username, password) => dispatch(mainActions.updateWifiDetails(username, password)),
         registerAll: (email,password,shufersalUsername,shufersalPassword,ramiLevyUsername,ramiLevyPassword,selection,sound,usernameWifi,passwordWifi) => dispatch(mainActions.registerAll(email,password,shufersalUsername,shufersalPassword,ramiLevyUsername,ramiLevyPassword,selection,sound,usernameWifi,passwordWifi)),
+        load: () => dispatch(loadingActions.loading()),
+        finishedLoading: () => dispatch(loadingActions.finishedLoading()),
+
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

@@ -19,6 +19,20 @@ class Settings extends Component {
         sound: true
     }
     componentDidMount = () => {
+        if (!this.props.loggedIn) {
+            if (getCurrentUser()) {
+                this.props.setLoggedIn()
+                this.loadData()
+            }
+            else {
+                this.props.history.push(LOGIN_PATH)
+            }
+        }
+        else{
+            this.loadData()
+        }
+    }
+    loadData = () =>{
         //load everything
         this.props.load();
         try{
@@ -45,9 +59,7 @@ class Settings extends Component {
        finally{
         this.props.finishedLoading();
        }
-        
     }
-
     onSubmit = (e) => {
         e.preventDefault()
         this.props.updateSettings(this.state.shufersalUsername,

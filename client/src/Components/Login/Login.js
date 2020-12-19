@@ -25,30 +25,31 @@ class Login extends Component {
   render() {
     return (
       <Container className="form app-background">
-        <h1 style={{textAlign:"right"}}>התחברות</h1>
+        <Col xs={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} className="form-style">
+        <h2 style={{textAlign:"center"}}>התחברות</h2>
 
         <Form onSubmit={(e) => this.handleSubmit(e)} style={{textAlign:"right"}} >
-        <Col xs={12} lg={6} className="float-right">
+        <Col className="top">
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>דואר אלקטרוני</Form.Label>
+            {/* <Form.Label>דואר אלקטרוני</Form.Label> */}
             <Form.Control type="email" placeholder="הכנס דואר אלקטרוני" name="email" onChange={(e) => this.handleChange(e)} />
 
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
-            <Form.Label>סיסמה</Form.Label>
+            {/* <Form.Label>סיסמה</Form.Label> */}
             <Form.Control type="password" placeholder="הכנס סיסמה" name="password" onChange={(e) => this.handleChange(e)} />
           </Form.Group>
           
           
-          <Button variant="primary" type="submit">
+          <Button className="btn-block mr-1 mt-1" variant="primary" type="submit">
             התחבר
   </Button>
-          <p> עדיין אין לך חשבון? לחץ<span onClick={() => this.props.history.push(REGISTER_PATH)} className="register-link"> כאן </span> על מנת ליצור אחד</p>
+          <p className="top-p"> עדיין אין לך חשבון? לחץ<span onClick={() => this.props.history.push(REGISTER_PATH)} className="register-link"> כאן </span> על מנת ליצור אחד</p>
           </Col>
 
         </Form>
-
+        </Col>
       </Container>
     );
   }

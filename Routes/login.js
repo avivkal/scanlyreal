@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
   }).then(user => {
     console.log(user.password)
     if (!user || !user.comparePassword(req.body.password)) {
-      res.status(401).json({ message: 'Authentication failed. Invalid user or password.' });
+      res.status(401).send('האימייל או הסיסמה שהוזנו לא נכונים');
     }
     const token = jwt.sign({ email: user.email, _id: user._id }, process.env.TOKEN_SECRET);
     res.header("auth-token", token).json({ token, ...user._doc });

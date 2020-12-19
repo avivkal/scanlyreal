@@ -17,7 +17,7 @@ const updateWifiDetails = (username, password) => async dispatch => {
     }
 }
 
-const updateSettings = (shufersalUsername,shufersalPassword,ramiLevyUsername,ramiLevyPassword,selection,sound) => async dispatch => {
+const updateSettings = (shufersalUsername,shufersalPassword,ramiLevyUsername,ramiLevyPassword,selection,sound, showMessage = false) => async dispatch => {
     dispatch(loading());
     try{
         const user = await axios.post('/settings',
@@ -31,7 +31,8 @@ const updateSettings = (shufersalUsername,shufersalPassword,ramiLevyUsername,ram
          })
         await dispatch(updateUsername(user.data));
         await dispatch(loggedIn());
-        dispatch(openPrompt('נשמר','כל המידע נשמר'))
+        if(!showMessage)
+            dispatch(openPrompt('נשמר','כל המידע נשמר'))
     }
     catch(error){
         console.log(error)
@@ -93,7 +94,7 @@ const logIn = (email, password) => async dispatch => {
         await dispatch(loggedIn());
     }
     catch (error) {
-        dispatch(openPrompt('תקלה', error.response))
+        dispatch(openPrompt('תקלה', error.response.data))
     }
     finally {
         dispatch(finishedLoading());
@@ -107,7 +108,7 @@ const registerAll = (email,password,shufersalUsername,shufersalPassword,ramiLevy
         await dispatch(register(email,password))
         if(getCurrentUser()){
             await dispatch(updateWifiDetails(usernameWifi,passwordWifi))        
-            await dispatch(updateSettings(shufersalUsername,shufersalPassword,ramiLevyUsername,ramiLevyPassword,selection,sound))
+            await dispatch(updateSettings(shufersalUsername,shufersalPassword,ramiLevyUsername,ramiLevyPassword,selection,sound,true))
         }    
     }
    else{

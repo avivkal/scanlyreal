@@ -63,7 +63,7 @@ router.post('/', async (req, res) => {
         }   
     }
 
-
+    console.log(shouldUpdate)
     if(shouldUpdate){
         console.log('fetch')
         User.findOneAndUpdate({ email: req.body.email },
@@ -137,7 +137,7 @@ router.post('/update', async (req, res) => {
                 'sec-fetch-mode': 'cors',
                 'sec-fetch-dest': 'empty',
                 'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
-                'Content-Type': 'application/json; charset=UTF-8'
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: JSON.stringify({"username":req.body.ramiLevyUsername,"password":req.body.ramiLevyPassword,"id_delivery_times":null})
         });

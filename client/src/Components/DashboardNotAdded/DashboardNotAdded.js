@@ -4,9 +4,11 @@ import * as mainActions from '../../Store/Actions/mainActions'
 import * as loadingActions from '../../Store/Actions/loadingActions'
 import { LOGIN_PATH } from '../../Constants/const';
 import { getCurrentUser } from '../../UtilityFunctions/functions';
-import { Container,Table,Dropdown,Spinner } from 'react-bootstrap';
+import { Container,Table,Dropdown,Col } from 'react-bootstrap';
 import axios from '../../Axios/config'
 import './DashboardNotAdded.scss'
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 class Dashboard extends Component {
     state = {
         productsNotAdded: [],
@@ -42,7 +44,7 @@ class Dashboard extends Component {
     }
     render(){
         if(this.props.loading)
-            return <Spinner animation="border" className="spinner" />
+            return <Col xs={12} className="d-flex justify-content-center spinner-style"><CircularProgress /></Col>
         if(this.state.productsNotAdded === null || this.state.productsNotAdded === undefined || this.state.productsNotAdded.length === 0)
             return <Container>
                 <h1 style={{textAlign:"right"}}>מוצרים שלא נכנסו לעגלה</h1>
@@ -64,7 +66,7 @@ class Dashboard extends Component {
                         </Dropdown.Menu>
                     </Dropdown>
 <Table bordered hover className="table-style">
-  <thead>
+  <thead className="table-header">
     <tr>
       <th>תמונה</th>
       <th>שם מוצר</th>
