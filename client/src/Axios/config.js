@@ -4,7 +4,7 @@ import {URL} from '../Constants/const'
 axios.defaults.baseURL = URL;
 const token = JSON.parse(localStorage.getItem('token'));
 axios.defaults.headers.common['auth-token'] = token;
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 
 axios.interceptors.request.use(
