@@ -37,10 +37,10 @@ router.post('/', async (req, res) => {
     }
     else{
         console.log('rami')
-        const hi2 = await fetch('https://api-prod.rami-levy.co.il/api/v2/site/auth/login', {
-            method: 'POST',
-            headers: {
-                'authority': 'api-prod.rami-levy.co.il',
+        console.log('here!')
+
+        const hi2 = await axios.post('https://api-prod.rami-levy.co.il/api/v2/site/auth/login',JSON.stringify({"username":req.body.ramiLevyUsername,"password":req.body.ramiLevyPassword,"id_delivery_times":null}), {headers:{
+            'authority': 'api-prod.rami-levy.co.il',
                 'sec-ch-ua': '"Google Chrome";v="87", " Not;A Brand";v="99", "Chromium";v="87"',
                 'accept': 'application/json, text/plain, */*',
                 'locale': 'he',
@@ -53,10 +53,8 @@ router.post('/', async (req, res) => {
                 'sec-fetch-mode': 'cors',
                 'sec-fetch-dest': 'empty',
                 'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
-                'Content-Type': 'application/json; charset=UTF-8'
-            },
-            body: JSON.stringify({"username":req.body.ramiLevyUsername,"password":req.body.ramiLevyPassword,"id_delivery_times":null})
-        });
+                'Content-Type': 'application/x-www-form-urlencoded'
+        }})
         console.log(hi2.status)     
         if(hi2.status === 200){
             shouldUpdate = true;
@@ -121,10 +119,8 @@ router.post('/update', async (req, res) => {
     }
     else{
         console.log('rami')
-        const hi2 = await fetch('https://api-prod.rami-levy.co.il/api/v2/site/auth/login', {
-            method: 'POST',
-            headers: {
-                'authority': 'api-prod.rami-levy.co.il',
+        const hi2 = await axios.post('https://api-prod.rami-levy.co.il/api/v2/site/auth/login',JSON.stringify({"username":req.body.ramiLevyUsername,"password":req.body.ramiLevyPassword,"id_delivery_times":null}), {headers:{
+            'authority': 'api-prod.rami-levy.co.il',
                 'sec-ch-ua': '"Google Chrome";v="87", " Not;A Brand";v="99", "Chromium";v="87"',
                 'accept': 'application/json, text/plain, */*',
                 'locale': 'he',
@@ -138,9 +134,7 @@ router.post('/update', async (req, res) => {
                 'sec-fetch-dest': 'empty',
                 'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
                 'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: JSON.stringify({"username":req.body.ramiLevyUsername,"password":req.body.ramiLevyPassword,"id_delivery_times":null})
-        });
+        }})
         console.log(hi2.status)     
         if(hi2.status === 200){
             shouldUpdate = true;
