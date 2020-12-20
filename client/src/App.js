@@ -15,7 +15,7 @@ const Settings = React.lazy(() => import('./Components/Settings/Settings'));
 const Wifi = React.lazy(() => import('./Components/Wifi/Wifi'));
 const DashboardNotAdded = React.lazy(() => import('./Components/DashboardNotAdded/DashboardNotAdded'));
 const DashboardFilters = React.lazy(() => import('./Components/DashboardFilters/DashboardFilters'));
-// const HomePage = React.lazy(() => import('./Components/HomePage/HomePage'));
+const HomePage = React.lazy(() => import('./Components/HomePage/HomePage'));
 
 function App() {
   return (
@@ -32,7 +32,7 @@ function App() {
             <Route path={WIFI_SETUP_PATH} exact component={Wifi} />
             <Route path={DASHBOARD_NOT_ADDED_PATH} exact component={DashboardNotAdded} />
             <Route path={DASHBOARD_FILTERS_PATH} exact component={DashboardFilters} />
-            {/* <Route path={HOME_PAGE_PATH} exact component={HomePage} /> */}
+            <Route path={HOME_PAGE_PATH} exact component={HomePage} />
           </Switch>
         </Suspense>
       </BrowserRouter>
