@@ -36,12 +36,12 @@ class Wifi extends Component {
                 this.props.history.push(LOGIN_PATH)
             }
         }
-        if(getCurrentUser() && getCurrentUser().wifiUsername){
-            this.setState({
-                username: getCurrentUser().wifiUsername,
-                password: getCurrentUser().wifiPassword,
-            })
-        }
+        // if(getCurrentUser() && getCurrentUser().wifiUsername){
+        //     this.setState({
+        //         username: getCurrentUser().wifiUsername,
+        //         password: getCurrentUser().wifiPassword,
+        //     })
+        // }
         
 
     }
