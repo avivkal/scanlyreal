@@ -46,19 +46,16 @@ router.post('/', async (req, res) => {
         method: 'POST',
             headers: {
                 'authority': 'api-prod.rami-levy.co.il',
-                'sec-ch-ua': '"Google Chrome";v="87", " Not;A Brand";v="99", "Chromium";v="87"',
                 'accept': 'application/json, text/plain, */*',
                 'locale': 'he',
-                'authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjIxNzE5ZDM2NzI0OGYyZDAwY2RkMThmM2U5ZmJhNGYxYTU1OTRkYjZlYjI3ODY4ZTlmZmJhNWI0YTdmNTc2Y2IwNDg3N2FiNjY1ODMwYWNjIn0.eyJhdWQiOiIzIiwianRpIjoiMjE3MTlkMzY3MjQ4ZjJkMDBjZGQxOGYzZTlmYmE0ZjFhNTU5NGRiNmV$',
-                'sec-ch-ua-mobile': '?0',
-                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36',
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36',
+                'ecomtoken': 'faa5dc4c-66db-483c-a767-49ce5becaf93',
                 'content-type': 'application/json;charset=UTF-8',
                 'origin': 'https://www.rami-levy.co.il',
                 'sec-fetch-site': 'same-site',
                 'sec-fetch-mode': 'cors',
                 'sec-fetch-dest': 'empty',
                 'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
-                'Content-Type': 'text/plain'
             },
             body: JSON.stringify({"username":req.body.ramiLevyUsername,"password":req.body.ramiLevyPassword,"id_delivery_times":null})
         });
@@ -135,19 +132,16 @@ router.post('/update', async (req, res) => {
         method: 'POST',
             headers: {
                 'authority': 'api-prod.rami-levy.co.il',
-                'sec-ch-ua': '"Google Chrome";v="87", " Not;A Brand";v="99", "Chromium";v="87"',
                 'accept': 'application/json, text/plain, */*',
                 'locale': 'he',
-                'authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjIxNzE5ZDM2NzI0OGYyZDAwY2RkMThmM2U5ZmJhNGYxYTU1OTRkYjZlYjI3ODY4ZTlmZmJhNWI0YTdmNTc2Y2IwNDg3N2FiNjY1ODMwYWNjIn0.eyJhdWQiOiIzIiwianRpIjoiMjE3MTlkMzY3MjQ4ZjJkMDBjZGQxOGYzZTlmYmE0ZjFhNTU5NGRiNmV$',
-                'sec-ch-ua-mobile': '?0',
-                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36',
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36',
+                'ecomtoken': 'faa5dc4c-66db-483c-a767-49ce5becaf93',
                 'content-type': 'application/json;charset=UTF-8',
                 'origin': 'https://www.rami-levy.co.il',
                 'sec-fetch-site': 'same-site',
                 'sec-fetch-mode': 'cors',
                 'sec-fetch-dest': 'empty',
                 'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
-                'Content-Type': 'text/plain'
             },
             body: JSON.stringify({"username":req.body.ramiLevyUsername,"password":req.body.ramiLevyPassword,"id_delivery_times":null})
         });
