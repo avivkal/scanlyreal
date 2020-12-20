@@ -42,7 +42,8 @@ router.post('/', async (req, res) => {
         res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 
         const hi2 = await fetch('https://api-prod.rami-levy.co.il/api/v2/site/auth/login', {
-            method: 'POST',
+        credentials: 'include',    
+        method: 'POST',
             headers: {
                 'authority': 'api-prod.rami-levy.co.il',
                 'sec-ch-ua': '"Google Chrome";v="87", " Not;A Brand";v="99", "Chromium";v="87"',
@@ -57,7 +58,7 @@ router.post('/', async (req, res) => {
                 'sec-fetch-mode': 'cors',
                 'sec-fetch-dest': 'empty',
                 'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
-                'Content-Type': 'application/json; charset=UTF-8'
+                'Content-Type': 'text/plain'
             },
             body: JSON.stringify({"username":req.body.ramiLevyUsername,"password":req.body.ramiLevyPassword,"id_delivery_times":null})
         });
@@ -130,7 +131,8 @@ router.post('/update', async (req, res) => {
 
         console.log('rami')
         const hi2 = await fetch('https://api-prod.rami-levy.co.il/api/v2/site/auth/login', {
-            method: 'POST',
+            credentials: 'include',       
+        method: 'POST',
             headers: {
                 'authority': 'api-prod.rami-levy.co.il',
                 'sec-ch-ua': '"Google Chrome";v="87", " Not;A Brand";v="99", "Chromium";v="87"',
@@ -145,7 +147,7 @@ router.post('/update', async (req, res) => {
                 'sec-fetch-mode': 'cors',
                 'sec-fetch-dest': 'empty',
                 'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'text/plain'
             },
             body: JSON.stringify({"username":req.body.ramiLevyUsername,"password":req.body.ramiLevyPassword,"id_delivery_times":null})
         });
