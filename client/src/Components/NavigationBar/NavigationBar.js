@@ -16,7 +16,6 @@ const NavigationBar = () => {
     // }
 
     const token = useSelector(state => state.main.token)
-    console.log(token)
     const logOutHandler = () => {
         localStorage.removeItem('currentUser');
         localStorage.removeItem('token');
@@ -41,7 +40,6 @@ const NavigationBar = () => {
                         <Nav.Link as={Link} to={DASHBOARD_PATH}>מוצרים שנוספו</Nav.Link> <Button onClick={logOutHandler} variant="danger">התנתקות מהחשבון</Button></Nav> : <Nav className="ml-auto align">                            
                             <Nav.Link as={Link} to={LOGIN_PATH}>התחברות</Nav.Link>
                             <Nav.Link as={Link} to={REGISTER_PATH}>הרשמה</Nav.Link>
-                            <Nav.Link as={Link} to={HOME_PAGE_PATH}>ראשי</Nav.Link>
 
 </Nav>}  
                         {/* <NavDropdown title="המוצרים שלי" id="collasible-nav-dropdown" show={this.state.show}

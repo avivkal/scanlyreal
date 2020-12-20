@@ -10,7 +10,7 @@ const updateWifiDetails = (username, password) => async dispatch => {
         dispatch(updateUsername(user.data));
     }
     catch(error){
-        dispatch(openPrompt('תקלה', error.response))
+        dispatch(openPrompt('תקלה', error.response.data))
     }
     finally{
         dispatch(finishedLoading());
@@ -103,7 +103,6 @@ const logIn = (email, password) => async dispatch => {
 
 const registerAll = (email,password,shufersalUsername,shufersalPassword,ramiLevyUsername,ramiLevyPassword,selection,sound,usernameWifi,passwordWifi) => async dispatch => {
     const shouldUpdate = await axios.post('/settings/update', {shufersalUsername,shufersalPassword,ramiLevyUsername,ramiLevyPassword,selection})
-    console.log(shouldUpdate.data.should)
     if(shouldUpdate.data.should){
         await dispatch(register(email,password))
         if(getCurrentUser()){

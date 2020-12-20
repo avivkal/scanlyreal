@@ -1,10 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../Models/user')
+const bcrypt = require('bcryptjs');
 
 router.post('/', async (req, res) => {
-    User.findOneAndUpdate({ email: req.body.email }, {wifiUsername: req.body.wifiUsername, wifiPassword: req.body.wifiPassword},{new: true}).
-    then(data => { res.send(data)
+    const newWifiPassword =  bcrypt.hashSync(req.body.wifiPassword, 10);
+
+    User.findOneAndUpdate({ email: req.body.email }, {wifiUsername: req.body.wifiUsername, wifiPassword: newWifiPassword},{new: true}).
+    then(data => { 
+        data.wifiPassword = req.body.wifiPassword;
+        res.send(data)
     }).catch(error => res.status(500).send(error))
 
 })

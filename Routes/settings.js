@@ -9,7 +9,6 @@ const fetch = require("node-fetch");
 router.post('/', async (req, res) => {
     let shouldUpdate = false;
     if(req.body.selection === 'Shufersal'){
-        console.log('shufersal')
         const hi = await fetch("https://www.shufersal.co.il/online/he/j_spring_security_check", {
             "headers": {
               "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -36,13 +35,10 @@ router.post('/', async (req, res) => {
           }          
     }
     else{
-        console.log('rami')
         shouldUpdate = true;
     }
 
-    console.log(shouldUpdate)
     if(shouldUpdate){
-        console.log('fetch')
         User.findOneAndUpdate({ email: req.body.email },
             {
                 shufersalUsername: req.body.shufersalUsername,
@@ -67,10 +63,8 @@ router.post('/', async (req, res) => {
 })
 
 router.post('/update', async (req, res) => {
-    console.log('reached')
     let shouldUpdate = false;
     if(req.body.selection === 'Shufersal'){
-        console.log('shufersal')
         const hi = await fetch("https://www.shufersal.co.il/online/he/j_spring_security_check", {
             "headers": {
               "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -97,7 +91,6 @@ router.post('/update', async (req, res) => {
           }          
     }
     else{
-        console.log('rami')
         shouldUpdate = true;
     }
 

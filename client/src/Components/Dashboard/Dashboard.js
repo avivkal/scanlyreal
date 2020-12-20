@@ -72,7 +72,6 @@ class Dashboard extends Component {
     }
 
     render(){
-      console.log(this.state.products)
         if(this.props.loading)
             return <Col xs={12} className="d-flex justify-content-center spinner-style"><CircularProgress /></Col>
         if(this.state.products === null || this.state.products === undefined || this.state.products.length === 0)

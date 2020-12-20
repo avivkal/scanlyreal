@@ -20,7 +20,6 @@ router.post('/', async (req, res) => {
   User.findOne({
     "email": req.body.email
   }).then(user => {
-    console.log(user.password)
     if (!user || !user.comparePassword(req.body.password)) {
       res.status(401).send('האימייל או הסיסמה שהוזנו לא נכונים');
     }

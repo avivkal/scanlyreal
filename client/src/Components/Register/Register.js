@@ -21,6 +21,7 @@ class Register extends Component {
         passwordWifi: '',
         submitUsername: false,
         submitPassword: false,
+        passwordWifiConfirm: ''
     }
 
     handleSubmit = async (e) => {
@@ -118,7 +119,11 @@ class Register extends Component {
                         <Form.Control name="passwordWifi" type="password" placeholder="Wifiהכנס סיסמה ל" onChange={(e) => this.handleChange(e)} value={this.state.passwordWifi} />
                     </Form.Group>
 
-                    <Button className="btn-block mr-1 mt-1 btn-md" variant="primary" type="submit">
+                    <Form.Group controlId="formBasicPassword" className="align-right">
+                        <Form.Control name="passwordWifiConfirm" type="password" placeholder="Wifiהכנס עוד הפעם סיסמה ל" onChange={(e) => this.handleChange(e)} value={this.state.passwordWifiConfirm} />
+                    </Form.Group>
+
+                    <Button disabled={!(this.state.passwordWifi === this.state.passwordWifiConfirm && this.state.passwordWifi !== '')} className="btn-block mr-1 mt-1 btn-md" variant="primary" type="submit">
                         הרשמה
               </Button>
               <p className="top-p"> יש לך כבר חשבון? לחץ<span onClick={() => this.props.history.push(LOGIN_PATH)} className="register-link"> כאן </span> כדי להתחבר</p>

@@ -13,6 +13,9 @@ const messagesExist = (messages) => {
 }
 
 const setCurrentUser = (user) => {
+    if(getCurrentUser() && getCurrentUser().wifiPassword){
+        user.wifiPassword = getCurrentUser().wifiPassword
+    }
     localStorage.setItem('currentUser', JSON.stringify(user))
 }
 const setCurrentToken = (token) => {

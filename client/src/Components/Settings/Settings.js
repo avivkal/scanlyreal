@@ -8,6 +8,7 @@ import axios from '../../Axios/config'
 import * as promptActions from '../../Store/Actions/promptActions'
 import * as loadingActions from '../../Store/Actions/loadingActions'
 import './settings.scss'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Settings extends Component {
     state = {
@@ -73,7 +74,9 @@ class Settings extends Component {
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
-    render() {        
+    render() { 
+        if(this.props.loading)
+            return <Col xs={12} className="d-flex justify-content-center spinner-style"><CircularProgress /></Col>               
         return (
             <Container>
                 <Form onSubmit={this.onSubmit} className="align-right margin">

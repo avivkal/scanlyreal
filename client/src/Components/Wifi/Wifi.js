@@ -36,22 +36,13 @@ class Wifi extends Component {
                 this.props.history.push(LOGIN_PATH)
             }
         }
-        this.props.load();
-        try {
-            axios.post('/details/' ,{email: getCurrentUser().email}).then(data => {
-                const user = data.data;
-                this.setState({
-                    username: user.wifiUsername,
-                    password: user.wifiPassword,
-                });
+        if(getCurrentUser() && getCurrentUser().wifiUsername){
+            this.setState({
+                username: getCurrentUser().wifiUsername,
+                password: getCurrentUser().wifiPassword,
             })
         }
-        catch (error) {
-            this.props.openPrompt('תקלה', 'לא ניתן לבצע את הפעולה');
-        }
-        finally {
-            this.props.finishedLoading();
-        }
+        
 
     }
 
@@ -83,14 +74,14 @@ class Wifi extends Component {
   </Col>
                 </Form>}
                 
-                {this.state.submitUsername && <Container> <Row className="center-style"> <Col md={{ span: 6, offset: 3 }}
-><Barcode value={this.state.username} /></Col> </Row>
-                  <Row> <Col md={{ span: 6, offset: 3 }} className="center-style"><Button variant="primary" onClick={()=>this.setState({submitPassword: true, submitUsername: false})}>
+                {this.state.submitUsername && <Container> <Row className="center-style"> <Col md={{ span: 6, offset: 3 }} style={{marginTop:"15px"}}
+><Barcode style={{marginTop:"15px"}} value={this.state.username} /></Col> </Row>
+                  <Row style={{marginTop:"15px"}}> <Col md={{ span: 6, offset: 3 }} className="center-style"><Button variant="primary" onClick={()=>this.setState({submitPassword: true, submitUsername: false})}>
                         המשך
   </Button></Col> </Row></Container>}
-                {this.state.submitPassword && <Container> <Row className="center-style"> <Col md={{ span: 6, offset: 3 }}
+                {this.state.submitPassword && <Container> <Row className="center-style"> <Col md={{ span: 6, offset: 3 }} style={{marginTop:"15px"}}
 ><Barcode value={this.state.password} /></Col> </Row>
-                  <Row> <Col md={{ span: 6, offset: 3 }} className="center-style"><Button variant="primary" onClick={()=>this.setState({submitPassword: false, submitUsername: false})}>
+                  <Row style={{marginTop:"15px"}}> <Col md={{ span: 6, offset: 3 }} className="center-style"><Button variant="primary" onClick={()=>this.setState({submitPassword: false, submitUsername: false})}>
                         סיום
   </Button></Col> </Row></Container>}
 

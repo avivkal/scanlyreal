@@ -35,7 +35,6 @@ class Dashboard extends Component {
     loadData = (days,filter) => {
         this.props.load()
         const isShufersal = this.props.currentUser.selection === 'Shufersal' ? true : false;
-        console.log(this.props.currentUser.selection + isShufersal)
         axios.post('/products/agg',{email:getCurrentUser().email,number:days, isShufersal:isShufersal,filter:filter}).then(data=>{
             this.setState({products:data.data})
             let x = 0;
