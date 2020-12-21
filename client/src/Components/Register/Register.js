@@ -56,7 +56,7 @@ class Register extends Component {
             return <Col xs={12} className="d-flex justify-content-center spinner-style"><CircularProgress /></Col>
         return (
             <Container className="form app-background">
-                        <Col xs={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} className="form-style">
+                        <Col xs={12} lg={{ span: 6, offset: 3 }} className="form-style">
 
                 <h3 style={{textAlign:"center"}}>הרשמה</h3>
                 <Form onSubmit={(e) => this.handleSubmit(e)} style={{textAlign:"right"}}>

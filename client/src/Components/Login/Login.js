@@ -25,7 +25,7 @@ class Login extends Component {
   render() {
     return (
       <Container className="form app-background">
-        <Col xs={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} className="form-style">
+        <Col xs={12} lg={{ span: 6, offset: 3 }} className="form-style">
         <h2 style={{textAlign:"center"}}>התחברות</h2>
 
         <Form onSubmit={(e) => this.handleSubmit(e)} style={{textAlign:"right"}} >
