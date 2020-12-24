@@ -128,6 +128,13 @@ router.post('/total', async (req, res) => {
 
 router.post('/addData', async (req, res) => {
   const newProduct = new Product(req.body)
+  console.log(req.body.added)
+  if(req.body.added === 'True'){
+    newProduct.added = true;
+  }
+  else{
+    newProduct.added = false;
+  }
   console.log(newProduct)
   newProduct.save()
   res.send(newProduct)
