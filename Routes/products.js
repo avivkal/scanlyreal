@@ -128,7 +128,8 @@ router.post('/total', async (req, res) => {
 
 router.post('/addData', async (req, res) => {
   const newProduct = new Product(req.body)
-  console.log(req.body.added)
+  newProduct.shufersalPrice = parseFloat(newProduct.shufersalPrice)
+  newProduct.ramiLevyPrice = parseFloat(newProduct.ramiLevyPrice)
   if(req.body.added === 'True'){
     newProduct.added = true;
   }
