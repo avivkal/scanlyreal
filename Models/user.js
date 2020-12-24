@@ -47,4 +47,9 @@ userScheme.methods.comparePassword = function(password) {
 
 };
 
+userScheme.methods.comparePasswordWifi = function(wifiPassword) {
+    return bcrypt.compareSync(wifiPassword, this.wifiPassword);
+
+};
+
 module.exports = mongoose.model('user', userScheme);

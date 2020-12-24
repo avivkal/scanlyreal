@@ -125,4 +125,12 @@ router.post('/total', async (req, res) => {
         }).catch(error => res.status(500).send(error))
 })
 
+
+router.post('/addData', async (req, res) => {
+  const newProduct = new Product(req.body)
+  console.log(newProduct)
+  newProduct.save()
+  res.send(newProduct)
+})
+
 module.exports = router
