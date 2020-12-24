@@ -16,6 +16,18 @@ const productScheme = new mongoose.Schema({
     creationDate: {
         type: Date,
     },
+    added:{
+        type: Boolean
+    },
+    shufersalPrice: {
+        type: Number,
+    },
+    ramiLevyPrice: {
+        type: Number,
+    },
+    image: {
+        type: String,
+    },
 });
 
 module.exports = mongoose.model('product', productScheme);
