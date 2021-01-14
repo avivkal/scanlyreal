@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/Components/Wifi/wifi.scss"],"names":[],"mappings":"AAAA,cACI,iBAAkB,CACrB,aAEG,gBAAiB,CACpB,iBAEG,eAAgB","file":"17.f97b0bbe.chunk.css","sourcesContent":[".center-style{\r\n    text-align: center;\r\n}\r\n.align-right{\r\n    text-align: right;\r\n}\r\n.form-style-wifi{\r\n    margin-top: 30px;\r\n}"]}

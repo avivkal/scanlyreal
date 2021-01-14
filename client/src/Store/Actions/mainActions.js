@@ -101,6 +101,22 @@ const logIn = (email, password) => async dispatch => {
     }
 }
 
+const logInAdmin = (email, password) => async dispatch => {
+    dispatch(loading());
+    try {
+        const user = await axios.post('/login/adminfind', { email: email, password: password })
+        await dispatch(updateUsername(user.data));
+        // localStorage.setItem('admin',true);
+        await dispatch(loggedIn());
+    }
+    catch (error) {
+        dispatch(openPrompt('תקלה', error.response.data))
+    }
+    finally {
+        dispatch(finishedLoading());
+    }
+}
+
 const registerAll = (email,password,shufersalUsername,shufersalPassword,ramiLevyUsername,ramiLevyPassword,selection,sound,usernameWifi,passwordWifi) => async dispatch => {
     const shouldUpdate = await axios.post('/settings/update', {shufersalUsername,shufersalPassword,ramiLevyUsername,ramiLevyPassword,selection})
     if(shouldUpdate.data.should){
@@ -143,5 +159,6 @@ export {
     updateWifiDetails,
     updateSettings,
     updateToken,
-    registerAll
+    registerAll,
+    logInAdmin
 }

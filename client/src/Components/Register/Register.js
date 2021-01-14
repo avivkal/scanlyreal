@@ -16,7 +16,7 @@ class Register extends Component {
         ramiLevyUsername: '',
         ramiLevyPassword: '',
         selection: 'Shufersal',
-        sound: true,
+        sound: false,
         usernameWifi: '',
         passwordWifi: '',
         submitUsername: false,
@@ -58,7 +58,7 @@ class Register extends Component {
             <Container className="form app-background">
                         <Col xs={12} lg={{ span: 6, offset: 3 }} className="form-style">
 
-                <h3 style={{textAlign:"center"}}>הרשמה</h3>
+                <h3 style={{textAlign:"center"}}>יצירת משתמש חדש</h3>
                 <Form onSubmit={(e) => this.handleSubmit(e)} style={{textAlign:"right"}}>
                 <Col className="top">
 
@@ -70,6 +70,9 @@ class Register extends Component {
                     <Form.Group controlId="formBasicPassword">
                         <Form.Control type="password" placeholder="צור סיסמה" name="password" onChange={(e) => this.handleChange(e)} />
                     </Form.Group>
+                    <hr />
+<h3 style={{textAlign:"center"}}>עגלת הקניות</h3>
+
                     <Dropdown>
 
 <Dropdown.Toggle variant="dark" id="dropdown-basic" className="margin-cart">
@@ -92,6 +95,7 @@ class Register extends Component {
 <Form.Control name="shufersalPassword" type="password" placeholder="הכנס סיסמה לשופרסל" onChange={(e) => this.handleChange(e)} value={this.state.shufersalPassword} />
 </Form.Group>
 </div>}
+<hr />
 
 {this.state.selection !== 'Shufersal' && 
 <div>
@@ -110,20 +114,25 @@ class Register extends Component {
 <Form.Check name="sound" type="checkbox" label="תגובות אודיו מהמכשיר" onChange={(e) => this.setState({ sound: e.target.checked })} checked={this.state.sound} />
 </Form.Group>
 </div>
+{/* <hr />
+<h3 style={{textAlign:"center"}}>הביתית Wifiרשת ה</h3>
+<Form.Text className="text-muted">
+ לידיעתכם: אנחנו משתמשים בוויפיי על מנת לחבר אח"כ את המכשיר לאינטרנט
+    </Form.Text>
 
-<Form.Group controlId="formBasicEmail" className="align-right">
-                        <Form.Control name="usernameWifi" type="text" placeholder="Wifiהכנס שם משתמש ל" onChange={(e) => this.handleChange(e)} value={this.state.usernameWifi} />
+<Form.Group controlId="formBasicEmail" className="align-right top-p">
+                        <Form.Control name="usernameWifi" type="text" placeholder="הביתית Wifiהכנס את שם רשת ה" onChange={(e) => this.handleChange(e)} value={this.state.usernameWifi} />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword" className="align-right">
-                        <Form.Control name="passwordWifi" type="password" placeholder="Wifiהכנס סיסמה ל" onChange={(e) => this.handleChange(e)} value={this.state.passwordWifi} />
+                        <Form.Control name="passwordWifi" type="password" placeholder="הביתית Wifiהכנס סיסמה לרשת ה" onChange={(e) => this.handleChange(e)} value={this.state.passwordWifi} />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword" className="align-right">
-                        <Form.Control name="passwordWifiConfirm" type="password" placeholder="Wifiהכנס עוד הפעם סיסמה ל" onChange={(e) => this.handleChange(e)} value={this.state.passwordWifiConfirm} />
+                        <Form.Control name="passwordWifiConfirm" type="password" placeholder="הביתית Wifiהכנס  עוד הפעם סיסמה לרשת ה" onChange={(e) => this.handleChange(e)} value={this.state.passwordWifiConfirm} />
                     </Form.Group>
-
-                    <Button disabled={!(this.state.passwordWifi === this.state.passwordWifiConfirm && this.state.passwordWifi !== '')} className="btn-block mr-1 mt-1 btn-md" variant="primary" type="submit">
+ */}
+                    <Button disabled={!(this.state.email !== '' && this.state.password !== '' && this.state.selection==='Shufersal' ? (this.state.shufersalUsername !== '' && this.state.shufersalPassword !== '') : (this.state.ramiLevyUsername !== '' && this.state.ramiLevyPassword !== ''))} className="btn-block mr-1 mt-1 btn-md" variant="primary" type="submit">
                         הרשמה
               </Button>
               <p className="top-p"> יש לך כבר חשבון? לחץ<span onClick={() => this.props.history.push(LOGIN_PATH)} className="register-link"> כאן </span> כדי להתחבר</p>

@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { Form, Button, Container,Col,Row } from 'react-bootstrap';
 import './login.scss'
 import { DASHBOARD_PATH, REGISTER_PATH } from '../../Constants/const'
-
 class Login extends Component {
   state = {
     email: '',
@@ -26,7 +25,7 @@ class Login extends Component {
     return (
       <Container className="form app-background">
         <Col xs={12} lg={{ span: 6, offset: 3 }} className="form-style">
-        <h2 style={{textAlign:"center"}}>התחברות</h2>
+        <h2 style={{textAlign:"center"}}>התחברות למשתמש קיים</h2>
 
         <Form onSubmit={(e) => this.handleSubmit(e)} style={{textAlign:"right"}} >
         <Col className="top">

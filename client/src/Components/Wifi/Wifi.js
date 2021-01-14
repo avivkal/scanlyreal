@@ -60,7 +60,7 @@ class Wifi extends Component {
                 {!(this.state.submitUsername || this.state.submitPassword) && <Form onSubmit={this.onSubmit} className="form-style-wifi">
                     <Col xs={12} lg={6} className="float-right">
                     <Form.Group controlId="formBasicEmail" className="align-right">
-                        <Form.Label>Wifiשם משתמש ל</Form.Label>
+                        <Form.Label>הביתית Wifiשם רשת ה </Form.Label>
                         <Form.Control name="username" type="text" placeholder="Enter Wifi Username" onChange={(e) => this.onChange(e)} value={this.state.username} />
                     </Form.Group>
 

@@ -1,0 +1,30 @@
+@import '../../Constants/colors.scss';
+
+.form{
+    padding-top: 30px;
+}
+.form-style{
+    margin-top: 50px;
+    padding: 30px;
+    border: 1px solid #999999;
+    background-color: white;
+}
+.register-link{
+    color: $register-link;
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+::placeholder{
+    text-align: right;
+}
+
+.top{
+    margin-top: 30px;
+}
+
+.top-p{
+    margin-top: 15px;
+}
+

@@ -5,10 +5,13 @@ import * as promptActions from '../../Store/Actions/promptActions'
 import * as loadingActions from '../../Store/Actions/loadingActions'
 import { LOGIN_PATH } from '../../Constants/const';
 import { getCurrentUser } from '../../UtilityFunctions/functions';
-import { Container,Dropdown,Table,Spinner,Col } from 'react-bootstrap';
+import { Container,Dropdown,Spinner,Col } from 'react-bootstrap';
 import axios from '../../Axios/config'
 import './dashboard.scss'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import {Table} from "reactstrap"
+import "../../Assets/scss/pages/dashboard-analytics.scss"
+import "../../Assets/scss/bootstrap-extended/_tables.scss"
 
 class Dashboard extends Component {
     state = {
@@ -23,7 +26,6 @@ class Dashboard extends Component {
         }
 
     componentDidMount = async () => {
-        // axios.get('https://chp.co.il/autocompletion/product_extended?term=8717163647226').then(data=> console.log(data.data[0].value))
         if (!this.props.loggedIn) {
             if (getCurrentUser()) {
                 this.props.setLoggedIn()
@@ -76,13 +78,13 @@ class Dashboard extends Component {
             return <Col xs={12} className="d-flex justify-content-center spinner-style"><CircularProgress /></Col>
         if(this.state.products === null || this.state.products === undefined || this.state.products.length === 0)
             return <Container>
-            <h1 style={{textAlign:"right"}}>מוצרים שנוספו</h1>
+            <h1 style={{textAlign:"right"}}>היסטוריית מוצרים</h1>
             <h1 className="table-style-image margin-top-container">לא נסרקו עדיין מוצרים</h1>
             </Container>
             
         return(
             <Container className="margin-top-container">
-            <h1 className="align-right">מוצרים שנוספו</h1>
+            <h1 className="align-right">היסטוריית מוצרים</h1>
             <Dropdown>
                         <Dropdown.Toggle variant="dark" id="dropdown-basic">
                   לפי    {this.state.days} ימים אחרונים
@@ -94,9 +96,67 @@ class Dashboard extends Component {
                             <Dropdown.Item onClick={() => this.handleDropdownChange(365)}>לפי 365 ימים אחרונים</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
-                    <p className="align-right">לאיזו עגלה המוצר נכנס = 🛒</p>
+                    {/* <p className="align-right">לאיזו עגלה המוצר נכנס = 🛒</p> */}
 
-                                <Table bordered hover className="table-style">
+
+     
+        <Table
+          bordered hover
+          className="dashboard-table table-hover-animation mb-0 mt-1 style-center"
+        >
+          <thead>
+          <tr className="table-header">
+      <th className="table-style-image">מחיר</th>
+      <th className="table-style-image">תמונה</th>
+      <th>שם מוצר</th>
+      <th className="d-none d-lg-table-cell">תאריך</th>
+
+    </tr>
+          </thead>
+
+          <tbody>
+
+          {this.state.products.map((current) => {
+          const date = new Date(current.creationDate);
+          const newDate = date.toLocaleDateString('he-IS');
+          const nameToshow = current.name !== '' ? current.name : `${current.barcode} :מוצר לא נמצא, ברקוד`
+        //   const greater = current.shufersalPrice < current.ramiLevyPrice ? 'shufersal' : 'ramiLevy'
+          //greater === 'shufersal' ? 'red-style' : 'green-style'
+          // const isSelectionShufersal = current.selection === 'Shufersal';
+          const priceGeneral = current.selection === 'Shufersal' ? current.shufersalPrice : current.ramiLevyPrice;
+          // const difference = (Math.round((current.shufersalPrice-current.ramiLevyPrice) * 100) / 100).toFixed(2);
+          // let message = ''
+          // if(isSelectionShufersal){
+          //   if(difference>0){
+          //       message = `₪ ${Math.abs(difference)} ניתן לחסוך ברמי לוי`
+          //   }
+            
+          // }
+          // else{
+          //   if(difference<0){
+          //       message = `₪ ${Math.abs(difference)} ניתן לחסוך בשופרסל`
+          //   }
+            
+          // }
+              return <tr key={current._id}>
+              {/* <td className='table-style-image'>{message} </td> */}
+              <td>{priceGeneral} {priceGeneral !== 'לא נמצא' && '₪'} </td>
+              {/* <td className={(!isSelectionShufersal && 'gray-style') + ' table-style-image'}>{current.shufersalPrice} {current.shufersalPrice !=='לא נמצא' && '₪'} {isSelectionShufersal && <div>🛒</div>}</td>
+          <td className={(isSelectionShufersal && 'gray-style') + ' table-style-image'}>{current.ramiLevyPrice} {current.ramiLevyPrice !=='לא נמצא' && '₪'} {!isSelectionShufersal && <div>🛒</div>}</td> */}
+              <td className="table-style-image"><img height="50px" src={current.image}/></td>
+              <td>{nameToshow}</td>
+              <td className="d-none d-lg-table-cell">{newDate}</td>
+            </tr>
+            
+          
+                      
+      })}
+        
+          </tbody>
+        </Table>
+
+
+                                {/* <Table bordered hover className="table-style">
   <thead>
     <tr className="table-header">
       <th className="table-style-image">ניתן לחסוך</th>
@@ -119,13 +179,13 @@ class Dashboard extends Component {
           let message = ''
           if(isSelectionShufersal){
             if(difference>0){
-                message = `₪ ${difference} ניתן לחסוך ברמי לוי`
+                message = `₪ ${Math.abs(difference)} ניתן לחסוך ברמי לוי`
             }
             
           }
           else{
             if(difference<0){
-                message = `₪ ${difference} ניתן לחסוך בשופרסל`
+                message = `₪ ${Math.abs(difference)} ניתן לחסוך בשופרסל`
             }
             
           }
@@ -149,8 +209,8 @@ class Dashboard extends Component {
 
         
   </tbody>
-</Table>
-
+</Table> */}
+{/* 
 <Table bordered hover className="table-style-image table-style">
   <thead>
     <tr className="table-header">
@@ -165,7 +225,7 @@ class Dashboard extends Component {
 
 
 <tr key='totalComparison'>
-    <td>{(Math.round((Math.abs(this.state.ramiLevyTotal-this.state.shufersalTotal)) * 100) / 100).toFixed(2)} ₪ :הפרש מחיר בין הסלים</td>
+    <td>{Math.abs((Math.round(((this.state.ramiLevyTotal-this.state.shufersalTotal)) * 100) / 100).toFixed(2))} ₪ :הפרש מחיר בין הסלים</td>
 
           <td className={this.state.shufersalTotal < this.state.ramiLevyTotal ? 'green-style' : 'red-style'}>{(Math.round(this.state.shufersalTotal * 100) / 100).toFixed(2)} ₪</td>
           <td className={this.state.shufersalTotal > this.state.ramiLevyTotal ? 'green-style' : 'red-style'}>{(Math.round(this.state.ramiLevyTotal * 100) / 100).toFixed(2)} ₪</td>
@@ -173,7 +233,7 @@ class Dashboard extends Component {
         </tr>
 </tbody>
 
-</Table>    
+</Table>     */}
 {/* <h1 style={{textAlign:"right"}}>מוצרים שלא נכנסו לעגלה</h1>
 <Table striped bordered hover variant="dark" className="table-style">
   <thead>

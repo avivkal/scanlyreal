@@ -4,12 +4,14 @@ import * as mainActions from '../../Store/Actions/mainActions'
 import * as loadingActions from '../../Store/Actions/loadingActions'
 import { LOGIN_PATH } from '../../Constants/const';
 import { getCurrentUser } from '../../UtilityFunctions/functions';
-import { Container,Table,Dropdown,Spinner,Row,Col } from 'react-bootstrap';
+import { Container,Dropdown,Spinner,Row,Col } from 'react-bootstrap';
 import axios from '../../Axios/config'
 import './dashboardFilters.scss'
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-class Dashboard extends Component {
+import {Table} from "reactstrap"
+import "../../Assets/scss/pages/dashboard-analytics.scss"
+import "../../Assets/scss/bootstrap-extended/_tables.scss"
+class DashboardFilters extends Component {
     state = {
         products: [],
         days: 30,
@@ -73,7 +75,7 @@ class Dashboard extends Component {
 <Row>
 <Dropdown>
                         <Dropdown.Toggle variant="dark" id="dropdown-basic">
-                  לפי    {this.state.days} ימים אחרונים
+            מיון      לפי    {this.state.days} ימים אחרונים
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
@@ -85,7 +87,7 @@ class Dashboard extends Component {
 
                     <Dropdown className="dropdown-style">
                         <Dropdown.Toggle variant="dark" id="dropdown-basic">
-                  {this.state.filter === 'price' ? 'מחיר כולל' : 'כמות'}
+                  {this.state.filter === 'price' ? 'מיון לפי מחיר כולל' : 'מיון לפי כמות'}
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
@@ -95,7 +97,45 @@ class Dashboard extends Component {
                     </Dropdown>
                     </Row>
 
-<Table bordered hover className="table-style">
+                    <Table
+          bordered hover
+          className="dashboard-table table-hover-animation mb-0 mt-1 style-center"
+        >
+          <thead>
+          <tr>
+    <th>מחיר כולל</th>
+    <th>כמות</th>
+
+      <th>תמונה</th>
+      <th>שם מוצר</th>
+    </tr>
+          </thead>
+
+          <tbody>
+
+          {this.state.products.map(current => {
+          return <tr key={current._id.barcode}>
+                        <td>{(Math.round((current.price) * 100) / 100).toFixed(2)}₪</td>
+                        <td>{current.total}</td>
+
+          <td><img height="50px" src={current._id.image}/></td>
+          <td>{current._id.name}</td>
+
+        </tr>
+      })}
+    <tr key={'total'}>
+          <td>{(Math.round((this.state.totalPriceLocal) * 100) / 100).toFixed(2)} ₪ </td>
+          <td></td>
+          <td></td>
+          <td>סה"כ</td>
+
+        </tr>
+        
+          </tbody>
+        </Table>
+
+
+{/* <Table bordered hover className="table-style">
   <thead className="table-header">
     <tr>
     <th>מחיר כולל</th>
@@ -108,7 +148,7 @@ class Dashboard extends Component {
   <tbody>
       {this.state.products.map(current => {
           return <tr key={current._id.barcode}>
-                        <td>{current.price}₪</td>
+                        <td>{(Math.round((current.price) * 100) / 100).toFixed(2)}₪</td>
                         <td>{current.total}</td>
 
           <td><img height="50px" src={current._id.image}/></td>
@@ -121,7 +161,7 @@ class Dashboard extends Component {
 
         </tr>
   </tbody>
-</Table>
+</Table> */}
 </Container>
         );
     }
@@ -148,4 +188,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardFilters);

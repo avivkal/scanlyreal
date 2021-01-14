@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../Models/user')
+const Admin = require('../Models/admin')
 const Registered = require('../Models/registered')
 const functions = require('../Functions/functions');
 const bcrypt = require('bcryptjs');
@@ -35,10 +36,25 @@ router.post('/', async (req, res) => {
       } else {
         user.password = undefined;
         const token = jwt.sign({ email: user.email, _id: user._id }, process.env.TOKEN_SECRET);
-        res.header("auth-token", token).json({ token, ...user._doc });    
+        res.header("Authorization", token).json({ token, ...user._doc });    
       }
     });  
 })
 
+
+router.post('/admincreate', async (req, res) => {
+  var newUser = new Admin(req.body);
+  console.log(newUser)
+  newUser.password = bcrypt.hashSync(req.body.password, 10);
+  newUser.save(function(err, user) {
+    if (err) {
+        res.status(500).send('משתמש עם הפרטים הללו כבר קיים')
+    } else {
+      user.password = undefined;
+      const token = jwt.sign({ email: user.email, _id: user._id }, process.env.TOKEN_SECRET);
+      res.header("Authorization", token).json({ token, ...user._doc });    
+    }
+  });  
+})
 
 module.exports = router

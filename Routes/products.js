@@ -54,7 +54,7 @@ router.post('/getDataPartial', async (req, res) => {
 router.post('/', async (req, res) => {
   var today = new Date();
   today.setDate(today.getDate() - req.body.number);
-    Product.find({ email: req.body.email, added:true, creationDate: {$gte: today} }).
+    Product.find({ email: req.body.email, creationDate: {$gte: today} }).
         then(data => {
             res.send(data)
         }).catch(error => res.status(500).send(error))
@@ -108,8 +108,24 @@ router.post('/agg', async (req, res) => {
     
 })
 
+router.post('/aggByMarket', async (req, res) => {
+  var today = new Date();
+  today.setDate(today.getDate() - req.body.number);
+    Product.aggregate([
+      { $match: { email: req.body.email, added: true,shufersalPrice:{$ne: "לא נמצא"},ramiLevyPrice:{$ne: "לא נמצא"}, creationDate: {$gte: today} } },
+      { $group: { _id: {barcode: "$barcode",image: "$image", name:"$name"}, total: { $sum: 1 }, priceSufersal: { $sum: "$shufersalPrice" },priceRamiLevy: { $sum: "$ramiLevyPrice" }} },
+      { $sort: { priceSufersal: -1 } }
+    ]
+    ).
+        then(data => {
+            res.send(data)
+        }).catch(error => res.status(500).send(error))
+  
+})
 
-router.post('/total', async (req, res) => {
+
+
+router.post('/total', async (req, res) => { //main dashboard
   var today = new Date();
   today.setDate(today.getDate() - req.body.number);
   const marketPrice = req.body.isShufersal ? "$shufersalPrice" : "$ramiLevyPrice";
@@ -128,8 +144,12 @@ router.post('/total', async (req, res) => {
 
 router.post('/addData', async (req, res) => {
   const newProduct = new Product(req.body)
-  newProduct.shufersalPrice = parseFloat(newProduct.shufersalPrice)
-  newProduct.ramiLevyPrice = parseFloat(newProduct.ramiLevyPrice)
+  if(newProduct.shufersalPrice !== 'לא נמצא'){
+    newProduct.shufersalPrice = parseFloat(newProduct.shufersalPrice)
+  }
+    if(newProduct.ramiLevyPrice !== 'לא נמצא'){
+      newProduct.ramiLevyPrice = parseFloat(newProduct.ramiLevyPrice)
+    }
   if(req.body.added === 'True'){
     newProduct.added = true;
   }

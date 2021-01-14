@@ -4,6 +4,7 @@ const User = require('../Models/user')
 const functions = require('../Functions/functions');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const Admin = require('../Models/admin')
 
 // router.post('/', async (req, res) => {
 //   User.findOne({ "email": req.body.email, "password": req.body.password }).then(user => {
@@ -27,8 +28,9 @@ router.post('/', async (req, res) => {
       res.status(401).send('האימייל או הסיסמה שהוזנו לא נכונים');
     }
     const token = jwt.sign({ email: user.email, _id: user._id }, process.env.TOKEN_SECRET);
+    console.log('login token')
     console.log(token)
-    res.header("auth-token", token).json({ token, ...user._doc });
+    res.header("Authorization", token).json({ token, ...user._doc });
   }).
   catch(error => res.status(500).send(error.message))
 
@@ -45,13 +47,45 @@ router.post('/wifivalidation', async (req, res) => {
       res.status(401).send('error');
     }
     const token = jwt.sign({ email: user.email, _id: user._id }, process.env.TOKEN_SECRET);
-    res.header("auth-token", token).json({ token, ...user._doc });
+    res.header("Authorization", token).json({ token, ...user._doc });
   }).
   catch(error => res.status(500).send(error.message))
 
 
 })
 
+router.post('/idValidation', async (req, res) => {
+  console.log(req.body.deviceID)
+  User.findOne({
+    "deviceID": req.body.deviceID
+  }).then(user => {
+    console.log(user)
+    if (!user) {
+      res.status(401).send('error');
+    }
+    const token = jwt.sign({ email: user.email, _id: user._id }, process.env.TOKEN_SECRET);
+    res.header("Authorization", token).json({ token, ...user._doc });
+  }).
+  catch(error => res.status(500).send(error.message))
+
+
+})
+
+router.post('/adminfind', async (req, res) => {
+  console.log(req.body.email)
+    Admin.findOne({
+      "email": req.body.email
+    }).then(user => {
+      console.log(user)
+      if (!user || !user.comparePassword(req.body.password)) {
+        res.status(401).send('האימייל או הסיסמה שהוזנו לא נכונים');
+      }
+      const token = jwt.sign({ email: user.email, _id: user._id, admin:true }, process.env.TOKEN_SECRET);
+      console.log(token)
+      res.header("Authorization", token).json({ token, ...user._doc });
+    }).
+    catch(error => res.status(500).send(error.message))
+  })
 
 // router.post('/', async (req, res) => {
 
