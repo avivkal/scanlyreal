@@ -187,22 +187,22 @@ label {
 .btn:hover {
     color: #fff;
 }
-.btn::before {
-    background: #fab522;
-    bottom: 0;
-    content: "";
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transform: scaleY(0);
-    transform-origin: 50% 0 0;
-    transition-duration: 0.3s;
-    transition-property: transform;
-    transition-timing-function: ease-out;
-    z-index: -1;
-    border-radius: 0;
-}
+// .btn::before {
+//     background: #fab522;
+//     bottom: 0;
+//     content: "";
+//     left: 0;
+//     position: absolute;
+//     right: 0;
+//     top: 0;
+//     transform: scaleY(0);
+//     transform-origin: 50% 0 0;
+//     transition-duration: 0.3s;
+//     transition-property: transform;
+//     transition-timing-function: ease-out;
+//     z-index: -1;
+//     border-radius: 0;
+// }
 .btn:hover::before {
     transform: scaley(1);
 }

@@ -24,6 +24,12 @@ class Register extends Component {
         passwordWifiConfirm: ''
     }
 
+    componentDidMount = () => {
+        if (this.props.loggedIn || (localStorage.getItem('currentUser') !== null)) {
+          this.props.history.push(DASHBOARD_PATH);
+        }
+      }
+      
     handleSubmit = async (e) => {
         e.preventDefault();
         const {email,password,shufersalUsername,
@@ -111,7 +117,7 @@ class Register extends Component {
 
 
 <Form.Group controlId="formBasicCheckbox" className="margin-sound">
-<Form.Check name="sound" type="checkbox" label="תגובות אודיו מהמכשיר" onChange={(e) => this.setState({ sound: e.target.checked })} checked={this.state.sound} />
+<Form.Check name="sound" type="checkbox" label="תגובות אודיו מהמכשיר בכל סריקה" onChange={(e) => this.setState({ sound: e.target.checked })} checked={this.state.sound} />
 </Form.Group>
 </div>
 {/* <hr />

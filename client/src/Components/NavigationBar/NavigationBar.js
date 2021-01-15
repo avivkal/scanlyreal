@@ -25,7 +25,7 @@ const NavigationBar = () => {
         return (
 
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" >
-                <Navbar.Brand as={Link} to={DASHBOARD_PATH}>Scanly</Navbar.Brand>
+                <Navbar.Brand as={Link} to={HOME_PAGE_PATH}>Scanly</Navbar.Brand>
 
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
@@ -43,6 +43,7 @@ const NavigationBar = () => {
                         <Nav.Link as={Link} to={DASHBOARD_PATH}>היסטוריית מוצרים</Nav.Link> <Button onClick={logOutHandler} variant="danger">התנתקות מהחשבון</Button></Nav> : <Nav className="ml-auto align">                            
                             <Nav.Link as={Link} to={LOGIN_PATH}>התחברות למשתמש קיים</Nav.Link>
                             <Nav.Link as={Link} to={REGISTER_PATH}>יצירת משתמש חדש</Nav.Link>
+                            <Nav.Link as={Link} to={HOME_PAGE_PATH}>עמוד הבית</Nav.Link>
 
 </Nav>}  
                         {/* <NavDropdown title="המוצרים שלי" id="collasible-nav-dropdown" show={this.state.show}

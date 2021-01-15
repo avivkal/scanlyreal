@@ -1,86 +1,33 @@
 import React, { Component, useState } from 'react';
-import Slider from "react-slick";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from "react-router-dom";
+// import Slider from "react-slick";
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { Link } from "react-router-dom";
+import { Button,Col,Row,Container } from 'react-bootstrap';
+import './myslider.scss'
+const SliderDefault = (props) =>  {
 
-const SliderDefault = () =>  {
-
-    const [isOpen, setIsOpen] = useState(false);
-    const openModal = () => setIsOpen(!isOpen);
-
-    function SampleNextArrow(props) {
-        const { className, onClick } = props;
-        return (
-            <button type='button' onClick={onClick} className={className}><i><FontAwesomeIcon icon={['fas', 'chevron-right']}/></i></button>
-        );
-    }
-
-    function SamplePrevArrow(props) {
-        const { className, onClick } = props;
-        return (
-            <button type='button' onClick={onClick} className={className}> <i><FontAwesomeIcon icon={['fas', 'chevron-left']}/></i></button>
-        );
-    }
-
-    const settings = {
-        className: "slider-active",
-        dots: false,
-        slidesToShow: 1,
-        speed: 500,
-        fade: true,
-        infinite: true,
-        nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />,
-        arrows: true,
-        slidesToScroll: 1,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    infinite: true,
-                }
-            },
-            {
-                breakpoint: 991,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    arrows: false,
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    arrows: false,
-                }
-            }
-        ]
-    };
-
+   
     return (
-        <div className="slider-area">
-            <Slider {...settings}>
-                <div className="single-slider">
-                {/* style={{ backgroundImage:`url(${'assets/img/slider/slider1.jpg'})`}} */}
-                    <div className="slider-height  d-flex align-items-center" >
-                        <div className="container">
-                            <div className="row ">
-                                <div className="col-xl-12">
-                                    <div className="slider-content mt-85">
-                                        <h1 data-animation="fadeInUp" data-delay=".6s">
-                                            Organic Food Is <br /> Good For Health
+        <div style={{paddingBottom:"30px", paddingRight:"30px"}}>
+            <Row>
+                <Col className="slider-content top">
+                <h1 data-animation="fadeInUp" data-delay=".6s" className="align-right white">
+                                        Scanly 
                                         </h1>
-                                        <p data-animation="fadeInUp" data-delay=".8s">
-                                            Lorem ipsum dolor sit amet,
-                                            consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                            ullamco.
+                </Col>
+                </Row>
+                <Row >
+                <Col>                <p data-animation="fadeInUp" data-delay=".8s" className="align-right white">
+                                        המערכת היחידה שמאפשרת לכם לדעת מה וכמה צרכתם במדויק <br /> ולמלא את סל הקניות האינטרנטי בצורה אוטומטית
+
+
                                         </p>
-                                        <div className="slider-button">
+                </Col>
+                </Row>
+                <Row>
+                <Col >                <div className="slider-button align-right">
+                                            <Button variant="warning" style={{color:"white"}} onClick={()=>props.currentProps.push("/login")}>התחברות למערכת</Button>
+                                            <Button variant="info" style={{color:"white", marginLeft:"10px"}} onClick={()=>props.currentProps.push("/register")}>יצירת משתמש חדש</Button>
                                             {/* <Link href="/services" as="/services" >
                                                 <a data-animation="fadeInLeft" data-delay=".8s" className="btn">
                                                     Our Services
@@ -92,48 +39,47 @@ const SliderDefault = () =>  {
                                                 </a>
                                             </Link> */}
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="single-slider">
-                {/* style={{ backgroundImage:`url(${'assets/img/slider/slider1-2.jpg'})`}} */}
-                    <div className="slider-height  d-flex align-items-center" >
-                        <div className="container">
-                            <div className="row ">
-                                <div className="col-xl-12">
-                                    <div className="slider-content mt-85">
-                                        <h1 data-animation="fadeInUp" data-delay=".6s">
-                                            Organic Food Is <br /> Good For Health
-                                        </h1>
-                                        <p data-animation="fadeInUp" data-delay=".8s">
-                                            Lorem ipsum dolor sit amet,
-                                            consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                            ullamco.
-                                        </p>
-                                        <div className="slider-button">
-                                            {/* <Link href="/services" as="/services" >
-                                                <a data-animation="fadeInLeft" data-delay=".8s" className="btn">
-                                                    Our Services
-                                                </a>
-                                            </Link>
-                                            <Link href="/contact" as="/contact" >
-                                                <a data-animation="fadeInRight" data-delay="1s" className="btn active">
-                                                    Contact Us
-                                                </a>
-                                            </Link> */}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Slider>
+                </Col>
+            </Row>
         </div>
+        // <div className="slider-area">
+        //         <div className="single-slider">
+        //         {/* style={{ backgroundImage:`url(${'assets/img/slider/slider1.jpg'})`}} */}
+        //             <div className="  d-flex align-items-center" >
+        //                 <div className="container">
+        //                     <div className="row ">
+        //                         <div className="col-xl-6">
+        //                             <div className="slider-content mt-85">
+        //                                 <h1 data-animation="fadeInUp" data-delay=".6s" className="align-right margin-right-style">
+        //                                 Scanly 
+        //                                 </h1>
+        //                                 <p data-animation="fadeInUp" data-delay=".8s" className="align-right">
+        //                                 המערכת היחידה שמאפשרת לכם לדעת מה וכמה צרכתם במדויק <br /> ולמלא את סל הקניות האינטרנטי בצורה אוטומטית
+
+
+        //                                 </p>
+        //                                 <div className="slider-button align-right">
+        //                                     <Button variant="warning" style={{color:"white"}}>התחברות למערכת</Button>
+        //                                     {/* <Link href="/services" as="/services" >
+        //                                         <a data-animation="fadeInLeft" data-delay=".8s" className="btn">
+        //                                             Our Services
+        //                                         </a>
+        //                                     </Link>
+        //                                     <Link href="/contact" as="/contact" >
+        //                                         <a data-animation="fadeInRight" data-delay="1s" className="btn active">
+        //                                             Contact Us
+        //                                         </a>
+        //                                     </Link> */}
+        //                                 </div>
+        //                             </div>
+        //                         </div>
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //         </div>
+               
+              
+        // </div>
     );
 }
 

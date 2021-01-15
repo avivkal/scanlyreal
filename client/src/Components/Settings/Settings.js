@@ -122,7 +122,7 @@ class Settings extends Component {
                     
                    
                     <Form.Group controlId="formBasicCheckbox" className="margin-sound">
-                        <Form.Check name="sound" type="checkbox" label="תגובות אודיו מהמכשיר" onChange={(e) => this.setState({ sound: e.target.checked })} checked={this.state.sound} />
+                        <Form.Check name="sound" type="checkbox" label="תגובות אודיו מהמכשיר בכל סריקה" onChange={(e) => this.setState({ sound: e.target.checked })} checked={this.state.sound} />
                     </Form.Group>
                     <Button variant="primary" type="submit">
                         שמור

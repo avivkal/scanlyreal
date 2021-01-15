@@ -1,0 +1,20 @@
+.align-right{
+    text-align: right
+}
+.top{
+    margin-top: 50px;
+}
+
+.back{
+    background-image: url("./man.jpg");
+
+    // background-image: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("./woman.jpg");
+
+
+    // background-color: #cccc00;
+}
+
+.white{
+    color:white;
+    font-weight: bold;
+}

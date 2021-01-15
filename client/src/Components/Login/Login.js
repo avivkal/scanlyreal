@@ -9,6 +9,13 @@ class Login extends Component {
     email: '',
     password: ''
   }
+
+  componentDidMount = () => {
+    if (this.props.loggedIn || (localStorage.getItem('currentUser') !== null)) {
+      this.props.history.push(DASHBOARD_PATH);
+    }
+  }
+
   handleSubmit = async (e) => {
     e.preventDefault();
     await this.props.logIn(this.state.email, this.state.password);
